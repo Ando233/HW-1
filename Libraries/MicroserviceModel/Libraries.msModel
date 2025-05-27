@@ -1,0 +1,105 @@
+MicroServiceModel Libraries {
+	MicroService CustomerService {
+		ProvidedInterface libraries{
+			[Operation]
+			libraries
+		}
+		ProvidedInterface login{
+			[Operation]
+			login
+		}
+		ProvidedInterface searchBook{
+			[Operation]
+			searchBook
+		}
+		ProvidedInterface register{
+			[Operation]
+			register
+		}
+		ProvidedInterface manageUser{
+			[Operation]
+			createUser
+			queryUser
+			updateUser
+			modifyUser
+		}
+		ProvidedInterface manageBook{
+			[Operation]
+			createBook
+			queryBook
+			updateBook
+			modifyBook
+		}
+		ProvidedInterface manageLibrarian{
+			[Operation]
+			createLibrarian
+			queryLibrarian
+			updateLibrarian
+			modifyLibrarian
+		}
+		RequiredInterface manageLibraries
+		RequiredInterface manageVerificationCode
+		DomainModel CustomerService {
+			@AutoCRUD Entity User {
+				UserId : Integer
+				Username : String
+				Password : String
+				Mailbox : String
+				UserStatus : Integer
+				[Refer]
+			}
+			@AutoCRUD Entity Book {
+				BookId : Integer
+				Booktitle : String
+				Authors : String
+				BookStatus : Integer
+				[Refer]
+			}
+			 Entity Librarian {
+				Id : Integer
+				Username : String
+				Password : String
+				[Refer]
+			}
+		}
+	}
+	MicroService LibrarianService {
+		ProvidedInterface returnBook{
+			[Operation]
+			returnBook
+		}
+		ProvidedInterface manageLibraries{
+			[Operation]
+			createLibraries
+			queryLibraries
+			updateLibraries
+			modifyLibraries
+		}
+		ProvidedInterface manageVerificationCode{
+			[Operation]
+			createVerificationCode
+			queryVerificationCode
+			updateVerificationCode
+			modifyVerificationCode
+		}
+		RequiredInterface manageUser
+		RequiredInterface manageBook
+		RequiredInterface manageLibrarian
+		DomainModel LibrarianService {
+			 Entity VerificationCode {
+				Mailbox : String
+				Code : String
+				[Refer]
+			}
+			@AutoCRUD Entity Libraries {
+				Id : Integer
+				Userid : Integer
+				Bookid : Integer
+				BorrowTime : Date
+				ReturnTime : Date
+				BorrowStatus : Integer
+				[Refer]
+			}
+		}
+	}
+}
